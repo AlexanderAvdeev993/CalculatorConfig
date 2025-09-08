@@ -1,0 +1,166 @@
+namespace CrossCalculate
+{
+    static class PatternText
+    {
+        public static string Get1k1Text(string studentName, string paymentDate, string previousProfName,
+                                        string nextProfName, string previousProfCoast, string actualOfferDate,
+                                        bool IsDPO)
+        {   
+            
+            if(IsDPO)
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal profCostDecimal))
+                {
+                    NumberResult profCostTextNumberResult = NumberToWords.NumberToText(profCostDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                               $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                               $" {actualOfferDate} г. (далее – Договор/Оферта) по Дополнительной профессиональной программе профессиональной переподготовки" +
+                               $" {previousProfName} (далее – Курс). Стоимость Курса составила {previousProfCoast} р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                               $" {profCostTextNumberResult.Rubles}({previousProfCoast}) {profCostTextNumberResult.DeclineRubles}," +
+                               $" {profCostTextNumberResult.Kopeks} что подтверждается чеком об оплате, приложенным к Заявлению.\n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии." +
+                               $" Заявитель отказывается от дальнейшего оказания платных образовательных услуг по Дополнительной профессиональной программе профессиональной переподготовки" +
+                               $" {previousProfName} и просит Организацию перевести его для обучения по Дополнительной профессиональной программе профессиональной переподготовки" +
+                               $" {nextProfName} без заключения Дополнительного соглашения к рамочной Оферте.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+            }
+            else           // ДО
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal profCostDecimal))
+                {
+                    NumberResult profCostTextNumberResult = NumberToWords.NumberToText(profCostDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                               $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                               $" {actualOfferDate} г. (далее – Договор/Оферта) по дополнительной общеобразовательной (общеразвивающей) программе" +
+                               $" {previousProfName} (далее – Курс). Стоимость Курса составила {previousProfCoast} р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                               $" {profCostTextNumberResult.Rubles}({previousProfCoast}) {profCostTextNumberResult.DeclineRubles}," +
+                               $" {profCostTextNumberResult.Kopeks} что подтверждается чеком об оплате, приложенным к Заявлению.\n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии." +
+                               $" Заявитель отказывается от дальнейшего оказания платных образовательных услуг по дополнительной общеобразовательной (общеразвивающей) программе" +
+                               $" {previousProfName} и просит Организацию перевести его для обучения по дополнительной общеобразовательной (общеразвивающей) программе" +
+                               $" {nextProfName} без заключения Дополнительного соглашения к рамочной Оферте.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+
+            }
+            
+        }
+        public static string GetReturnText(string studentName, string paymentDate, string previousProfName,
+                                           string nextProfName, string previousProfCoast, string actualOfferDate,
+                                           string nextProfCost, string operation, bool IsDPO)
+        {
+            if(IsDPO)
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal previousProfCostDecimal) &&
+                decimal.TryParse(nextProfCost, out decimal nextCoastDecimal) &&
+                decimal.TryParse(operation, out decimal operationDecimal))
+                {
+                    NumberResult previousProfCostText = NumberToWords.NumberToText(previousProfCostDecimal);
+                    NumberResult nextProfCostText = NumberToWords.NumberToText(nextCoastDecimal);
+                    NumberResult operationCostText = NumberToWords.NumberToText(operationDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                                  $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                                  $" {actualOfferDate} г. (далее – Договор/Оферта) по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                  $" {previousProfName} (далее – Курс). Стоимость Курса составила" +
+                                  $" {previousProfCoast}р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                                  $" {previousProfCostText.Rubles}({previousProfCoast}) {previousProfCostText.DeclineRubles}, " +
+                                  $" {previousProfCostText.Kopeks} что подтверждается Чеком об оплате, приложенным к Заявлению. \n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии.Заявитель отказывается от дальнейшего оказания платных образовательных услуг по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                  $" {previousProfName} и просит Организацию перевести его для обучения по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                  $" {nextProfName} стоимостью {nextProfCostText.Rubles}({nextProfCost}) {nextProfCostText.DeclineRubles}, без заключения Дополнительного соглашения к рамочной Оферте. \n В связи с вышеуказанным, Заявитель просит вернуть разницу уплаченных денежных средств за Курс по Договору в размере" +
+                                  $" {operationCostText.Rubles}({operation}) {operationCostText.DeclineRubles}, в течение 14 календарных дней с момента получения настоящего Заявления Организацией по банковским реквизитам Заявителя, указанным в настоящем Заявлении.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+            }
+            else
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal previousProfCostDecimal) &&
+               decimal.TryParse(nextProfCost, out decimal nextCoastDecimal) &&
+               decimal.TryParse(operation, out decimal operationDecimal))
+                {
+                    NumberResult previousProfCostText = NumberToWords.NumberToText(previousProfCostDecimal);
+                    NumberResult nextProfCostText = NumberToWords.NumberToText(nextCoastDecimal);
+                    NumberResult operationCostText = NumberToWords.NumberToText(operationDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                                  $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                                  $" {actualOfferDate} г. (далее – Договор/Оферта) по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                  $" {previousProfName} (далее – Курс). Стоимость Курса составила" +
+                                  $" {previousProfCoast}р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                                  $" {previousProfCostText.Rubles}({previousProfCoast}) {previousProfCostText.DeclineRubles}, " +
+                                  $" {previousProfCostText.Kopeks} что подтверждается Чеком об оплате, приложенным к Заявлению. \n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии.Заявитель отказывается от дальнейшего оказания платных образовательных услуг по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                  $" {previousProfName} и просит Организацию перевести его для обучения по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                  $" {nextProfName} стоимостью {nextProfCostText.Rubles}({nextProfCost}) {nextProfCostText.DeclineRubles}, без заключения Дополнительного соглашения к рамочной Оферте. \n В связи с вышеуказанным, Заявитель просит вернуть разницу уплаченных денежных средств за Курс по Договору в размере" +
+                                  $" {operationCostText.Rubles}({operation}) {operationCostText.DeclineRubles}, в течение 14 календарных дней с момента получения настоящего Заявления Организацией по банковским реквизитам Заявителя, указанным в настоящем Заявлении.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+            }
+        }
+
+        public static string GetSurchargeText(string studentName, string paymentDate, string previousProfName,
+                                              string nextProfName, string previousProfCoast, string actualOfferDate,
+                                              string nextProfCost, string operation, bool IsDPO)
+        {
+            if(IsDPO)
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal previousProfCostDecimal) &&
+                decimal.TryParse(nextProfCost, out decimal nextCoastDecimal) &&
+                decimal.TryParse(operation, out decimal operationDecimal))
+                {
+                    NumberResult previousProfCostText = NumberToWords.NumberToText(previousProfCostDecimal);
+                    NumberResult nextProfCostText = NumberToWords.NumberToText(nextCoastDecimal);
+                    NumberResult operationCostText = NumberToWords.NumberToText(operationDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                                 $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                                 $" {actualOfferDate} г. (далее – Договор/Оферта) по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                 $" {previousProfName} (далее – Курс). Стоимость Курса составила" +
+                                 $" {previousProfCoast}р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                                 $" {previousProfCostText.Rubles}({previousProfCoast}) {previousProfCostText.DeclineRubles}, " +
+                                 $" {previousProfCostText.Kopeks} что подтверждается Чеком об оплате, приложенным к Заявлению. \n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии.Заявитель отказывается от дальнейшего оказания платных образовательных услуг по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                 $" {previousProfName} и просит Организацию перевести его для обучения по Дополнительной профессиональной программе профессиональной переподготовки" +
+                                 $" {nextProfName} стоимостью {nextProfCostText.Rubles}({nextProfCost}) {nextProfCostText.DeclineRubles}, без заключения Дополнительного соглашения к рамочной Оферте. \n В связи с вышеуказанным, Заявитель выражает согласие внести дополнительную сумму оплаты для обучения по Дополнительной профессиональной программе профессиональной переподготовки " +
+                                 $" {nextProfName} в размере {operationCostText.Rubles}({operation}) {operationCostText.DeclineRubles} руб. в течение 14 календарных дней с момента получения настоящего Заявления Организацией по банковским реквизитам Организации, указанным в Договоре.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+            }
+            else
+            {
+                if (decimal.TryParse(previousProfCoast, out decimal previousProfCostDecimal) &&
+                decimal.TryParse(nextProfCost, out decimal nextCoastDecimal) &&
+                decimal.TryParse(operation, out decimal operationDecimal))
+                {
+                    NumberResult previousProfCostText = NumberToWords.NumberToText(previousProfCostDecimal);
+                    NumberResult nextProfCostText = NumberToWords.NumberToText(nextCoastDecimal);
+                    NumberResult operationCostText = NumberToWords.NumberToText(operationDecimal);
+
+                    string text = $" Между мной, {studentName}, (далее – Заявитель) и Образовательной автономной некоммерческой организацией дополнительного профессионального образования «СКАЕНГ» (далее – Организация)" +
+                                 $" {paymentDate} года был заключен рамочный Договор-Оферта на оказание платных образовательных услуг от" +
+                                 $" {actualOfferDate} г. (далее – Договор/Оферта) по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                 $" {previousProfName} (далее – Курс). Стоимость Курса составила" +
+                                 $" {previousProfCoast}р. В счет исполнения обязательств по Договору Заявитель оплатил сумму в размере" +
+                                 $" {previousProfCostText.Rubles}({previousProfCoast}) {previousProfCostText.DeclineRubles}, " +
+                                 $" {previousProfCostText.Kopeks} что подтверждается Чеком об оплате, приложенным к Заявлению. \n Согласно п.13 ст.34 Федерального закона \"Об образовании в Российской Федерации\" от 29.12.2012 N 273-ФЗ, Заявитель желает реализовать свое право на перевод для получения образования по другой профессии.Заявитель отказывается от дальнейшего оказания платных образовательных услуг по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                 $" {previousProfName} и просит Организацию перевести его для обучения по дополнительной общеобразовательной (общеразвивающей) программе" +
+                                 $" {nextProfName} стоимостью {nextProfCostText.Rubles}({nextProfCost}) {nextProfCostText.DeclineRubles}, без заключения Дополнительного соглашения к рамочной Оферте. \n В связи с вышеуказанным, Заявитель выражает согласие внести дополнительную сумму оплаты для обучения по дополнительной общеобразовательной (общеразвивающей) программе " +
+                                 $" {nextProfName} в размере {operationCostText.Rubles}({operation}) {operationCostText.DeclineRubles} руб. в течение 14 календарных дней с момента получения настоящего Заявления Организацией по банковским реквизитам Организации, указанным в Договоре.";
+                    return text;
+                }
+                else
+                    return "Неверный формат стоимости!";
+            }
+            
+        }
+    }
+}
