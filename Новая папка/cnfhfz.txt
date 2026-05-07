@@ -1,0 +1,26 @@
+	2 строка
+	<Grid Grid.Row="1" Background="#333333" Margin="10,10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Label Content="ФИО ученика"
+			   VerticalAlignment="Center"
+			   Margin="0,0,10,0"
+			   Grid.Column="0"/>
+
+		<TextBox x:Name="StudentNameTextBox" 
+			     VerticalAlignment="Center"
+				 HorizontalAlignment="Right"
+				 Margin="0,0,0,0"
+				 Width="250"
+				 Grid.Column="1"/>
+	</Grid>
+4 строка 
+<StackPanel Grid.Row="3">
+				<DatePicker x:Name="DataPicker"
+					        HorizontalAlignment="Stretch"
+							Margin="10">
+				</DatePicker>
+</StackPanel>
